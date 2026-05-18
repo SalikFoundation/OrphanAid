@@ -47,8 +47,37 @@ const {
         top: 0;
       }
     </style>
-    <!-- Fundraise Up: donation widget for "Sponsor an Orphan" CTAs (campaign FUNHEKHKKZL) -->
-    <script is:inline>(function(w,d,s,n,a){if(!w[n]){var l='call,catch,on,once,set,then,track,openCheckout'.split(','),i,o=function(n){return'function'==typeof n?o.l.push([arguments])&&o:function(){return o.l.push([n,arguments])&&o}},t=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=!0;j.src='https://cdn.fundraiseup.com/widget/'+a;t.parentNode.insertBefore(j,t);o.s=Date.now();o.v=5;o.h=w.location.href;o.q=[];w[n]=new Proxy(o,{get:function(o,n){return n==='q'?o.q:o(n)}});for(i=0;i<l.length;i++)o(l[i]);}})(window,document,'script','FundraiseUp','AWMXTNRG');</script>
+    <!-- Fundraise Up: donation widget (campaign FUNHEKHKKZL, account AWMXTNRG) -->
+    <script is:inline async src="https://cdn.fundraiseup.com/widget/AWMXTNRG"></script>
+    <script is:inline>
+      // Delegated click handler for any element with [data-fru].
+      // Optional: data-fru-amount="33" data-fru-recurring="monthly"
+      (function () {
+        const CAMPAIGN_ID = 'FUNHEKHKKZL';
+        const CURRENCY = 'CAD';
+        function whenReady(cb, tries) {
+          tries = tries || 0;
+          if (window.FundraiseUp && typeof window.FundraiseUp.openCheckout === 'function') return cb();
+          if (tries > 100) return; // give up after ~10s
+          setTimeout(function () { whenReady(cb, tries + 1); }, 100);
+        }
+        document.addEventListener('click', function (e) {
+          const t = e.target && e.target.closest && e.target.closest('[data-fru]');
+          if (!t) return;
+          e.preventDefault();
+          const opts = {};
+          const amount = t.dataset.fruAmount;
+          if (amount) {
+            opts.donation = {
+              amount: Number(amount),
+              currency: CURRENCY,
+              recurring: t.dataset.fruRecurring || 'monthly'
+            };
+          }
+          whenReady(function () { window.FundraiseUp.openCheckout(CAMPAIGN_ID, opts); });
+        });
+      })();
+    </script>
   </head>
   <body>
     <a href="#hero" class="skip-link">Skip to content</a>

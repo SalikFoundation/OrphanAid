@@ -140,6 +140,9 @@ const tiers = [
             <!-- CTA -->
             <a
               href="#"
+              data-fru
+              data-fru-amount={tier.price}
+              data-fru-recurring="monthly"
               class={`block w-full text-center py-4 rounded-xl text-sm font-[Montserrat] font-bold tracking-wide transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${
                 tier.featured
                   ? 'bg-[#FFB300] text-[#263238] hover:bg-[#e6a100] shadow-md hover:shadow-lg'
