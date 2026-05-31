@@ -6,12 +6,12 @@
     <a href="/" class="flex items-center gap-2 shrink-0" aria-label="Orphan Aid Home">
       <img
         id="nav-logo"
-        src="/logo.jpeg"
+        src="/logo.png"
         alt="Orphan Aid"
-        width="52"
+        width="134"
         height="52"
-        class="rounded-md object-contain"
-        style="width:52px;height:52px;transition:width 0.3s ease,height 0.3s ease;"
+        class="object-contain"
+        style="height:52px;width:auto;transition:height 0.3s ease;"
       />
     </a>
 
@@ -110,10 +110,10 @@
     if (!nav) return;
     if (window.scrollY > 80) {
       nav.classList.add('bg-[#1C6F9E]', 'shadow-md');
-      if (logo) { logo.style.width = '36px'; logo.style.height = '36px'; }
+      if (logo) { logo.style.height = '36px'; }
     } else {
       nav.classList.remove('bg-[#1C6F9E]', 'shadow-md');
-      if (logo) { logo.style.width = '52px'; logo.style.height = '52px'; }
+      if (logo) { logo.style.height = '52px'; }
     }
   };
 
