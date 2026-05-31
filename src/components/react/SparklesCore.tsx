@@ -11,7 +11,6 @@ type SparklesCoreProps = {
   id?: string;
   className?: string;
   background?: string;
-  particleSize?: number;
   minSize?: number;
   maxSize?: number;
   speed?: number;
@@ -59,11 +58,12 @@ export const SparklesCore = ({
             background: { color: { value: background } },
             fullScreen: { enable: false, zIndex: 1 },
             fpsLimit: 60,
+            reducedMotion: { enable: true, minimizeMovement: true },
             interactivity: {
               events: {
                 onClick: { enable: true, mode: "push" },
                 onHover: { enable: false, mode: "repulse" },
-                resize: true as any,
+                resize: { enable: true },
               },
               modes: {
                 push: { quantity: 3 },

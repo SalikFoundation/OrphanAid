@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef } from "react";
-import { motion } from "framer-motion";
+import { useEffect, useMemo, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import DottedMap from "dotted-map";
 
 interface DotConfig {
@@ -15,16 +15,39 @@ interface MapProps {
   lineColor?: string;
 }
 
-export function WorldMap({ dots = [], lineColor = "#56ACE0" }: MapProps) {
+export function WorldMap({ dots = [], lineColor = "#1C6F9E" }: MapProps) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const map = new DottedMap({ height: 100, grid: "diagonal" });
+  const prefersReducedMotion = useReducedMotion();
 
-  const svgMap = map.getSVG({
-    radius: 0.22,
-    color: "#FFFFFF18",
-    shape: "circle",
-    backgroundColor: "transparent",
-  });
+  // getSVG is expensive; the map and its rendered SVG never change, so memoize.
+  const svgMap = useMemo(() => {
+    const map = new DottedMap({ height: 100, grid: "diagonal" });
+    return map.getSVG({
+      radius: 0.22,
+      color: "#FFFFFF18",
+      shape: "circle",
+      backgroundColor: "transparent",
+    });
+  }, []);
+
+  // Pause SMIL <animate> pulses while the map is off-screen.
+  useEffect(() => {
+    const svg = svgRef.current;
+    if (!svg || prefersReducedMotion || typeof IntersectionObserver === "undefined") {
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (!entry) return;
+      if (entry.isIntersecting) {
+        svg.unpauseAnimations?.();
+      } else {
+        svg.pauseAnimations?.();
+      }
+    });
+    observer.observe(svg);
+    return () => observer.disconnect();
+  }, [prefersReducedMotion]);
 
   const projectPoint = (lat: number, lng: number) => {
     const x = (lng + 180) * (800 / 360);
@@ -48,7 +71,7 @@ export function WorldMap({ dots = [], lineColor = "#56ACE0" }: MapProps) {
       <img
         src={`data:image/svg+xml;utf8,${encodeURIComponent(svgMap)}`}
         className="h-full w-full [mask-image:linear-gradient(to_bottom,transparent,white_10%,white_90%,transparent)] pointer-events-none select-none"
-        alt="world map"
+        alt="World map showing Orphan Aid operations across 9 countries, with routes from Canada."
         draggable={false}
       />
       <svg
@@ -106,8 +129,12 @@ export function WorldMap({ dots = [], lineColor = "#56ACE0" }: MapProps) {
                 <g>
                   <circle cx={sx} cy={sy} r="3" fill={color} />
                   <circle cx={sx} cy={sy} r="3" fill={color} opacity="0.4">
-                    <animate attributeName="r" from="3" to="12" dur="2.5s" begin="0s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" from="0.4" to="0" dur="2.5s" begin="0s" repeatCount="indefinite" />
+                    {!prefersReducedMotion && (
+                      <>
+                        <animate attributeName="r" from="3" to="12" dur="2.5s" begin="0s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" from="0.4" to="0" dur="2.5s" begin="0s" repeatCount="indefinite" />
+                      </>
+                    )}
                   </circle>
                 </g>
               )}
@@ -115,8 +142,12 @@ export function WorldMap({ dots = [], lineColor = "#56ACE0" }: MapProps) {
               <g>
                 <circle cx={ex} cy={ey} r="2.5" fill={color} />
                 <circle cx={ex} cy={ey} r="2.5" fill={color} opacity="0.4">
-                  <animate attributeName="r" from="2.5" to="9" dur="2s" begin={`${0.25 * i}s`} repeatCount="indefinite" />
-                  <animate attributeName="opacity" from="0.4" to="0" dur="2s" begin={`${0.25 * i}s`} repeatCount="indefinite" />
+                  {!prefersReducedMotion && (
+                    <>
+                      <animate attributeName="r" from="2.5" to="9" dur="2s" begin={`${0.25 * i}s`} repeatCount="indefinite" />
+                      <animate attributeName="opacity" from="0.4" to="0" dur="2s" begin={`${0.25 * i}s`} repeatCount="indefinite" />
+                    </>
+                  )}
                 </circle>
               </g>
             </g>

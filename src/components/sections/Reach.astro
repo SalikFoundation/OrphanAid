@@ -22,7 +22,7 @@ const mapDots = orphanAidMarkers.map(country => ({
 
     <!-- Label -->
     <div class="animate-in-element flex justify-center mb-8">
-      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/8 border border-white/15 text-white/70 text-xs font-[Montserrat] font-semibold tracking-widest uppercase">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/8 border border-white/15 text-white/90 text-xs font-[Montserrat] font-semibold tracking-widest uppercase">
         Global Reach
       </span>
     </div>
@@ -35,7 +35,7 @@ const mapDots = orphanAidMarkers.map(country => ({
       </h2>
     </div>
     <div class="animate-in-element text-center max-w-2xl mx-auto mb-4">
-      <p class="text-lg font-[Inter] text-white/50 leading-[1.6]">
+      <p class="text-lg font-[Inter] text-white/90 leading-[1.6]">
         From our base in Canada, Orphan Aid reaches the world's most critical
         humanitarian zones — delivering care where it matters most.
       </p>
@@ -61,7 +61,7 @@ const mapDots = orphanAidMarkers.map(country => ({
         </div>
         <div class="flex flex-wrap gap-2">
           {highCrisisCountries.map(c => (
-            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-white/80 text-xs font-[Inter] font-medium">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-red-500/10 border border-red-500/20 text-white/90 text-xs font-[Inter] font-medium">
               <span class="w-1.5 h-1.5 rounded-full bg-red-400 shrink-0"></span>
               {c.label}
             </span>
@@ -80,7 +80,7 @@ const mapDots = orphanAidMarkers.map(country => ({
         </div>
         <div class="flex flex-wrap gap-2">
           {vulnerableCountries.map(c => (
-            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-white/80 text-xs font-[Inter] font-medium" style="background: rgba(86,172,224,0.08); border-color: rgba(86,172,224,0.2)">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-white/90 text-xs font-[Inter] font-medium" style="background: rgba(86,172,224,0.08); border-color: rgba(86,172,224,0.2)">
               <span class="w-1.5 h-1.5 rounded-full shrink-0" style="background: #56ACE0"></span>
               {c.label}
             </span>
@@ -100,7 +100,7 @@ const mapDots = orphanAidMarkers.map(country => ({
       ].map(stat => (
         <div class="text-center">
           <div class="font-[Montserrat] font-bold text-white leading-none mb-1.5" style="font-size: clamp(2rem, 4vw, 2.75rem)">{stat.value}</div>
-          <div class="text-[11px] font-[Inter] text-white/40 tracking-wide uppercase">{stat.label}</div>
+          <div class="text-[11px] font-[Inter] text-white/90 tracking-wide uppercase">{stat.label}</div>
         </div>
       ))}
     </div>

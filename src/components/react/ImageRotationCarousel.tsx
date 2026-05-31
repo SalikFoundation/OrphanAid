@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useReducedMotion } from "framer-motion"
 
 interface ImageCard {
@@ -15,21 +15,35 @@ interface ImageRotationCarouselProps {
 
 export function ImageRotationCarousel({ images }: ImageRotationCarouselProps) {
   const prefersReducedMotion = useReducedMotion()
+  const containerRef = useRef<HTMLDivElement>(null)
   const [mousePosition, setMousePosition] = useState({ x: 0.5, y: 0.5 })
   const [isHovering, setIsHovering] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
   const [angles, setAngles] = useState<number[]>([])
 
   useEffect(() => {
     setAngles(images.map((_, i) => i * (360 / images.length)))
   }, [images.length])
 
+  // Pause the rotation interval when the carousel scrolls off-screen.
   useEffect(() => {
-    if (prefersReducedMotion) return
+    const node = containerRef.current
+    if (!node || typeof IntersectionObserver === "undefined") return
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0]
+      if (entry) setIsVisible(entry.isIntersecting)
+    })
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (prefersReducedMotion || !isVisible) return
     const interval = setInterval(() => {
       setAngles((prev) => prev.map((a) => (a + 0.4) % 360))
     }, 50)
     return () => clearInterval(interval)
-  }, [prefersReducedMotion])
+  }, [prefersReducedMotion, isVisible])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
@@ -45,6 +59,7 @@ export function ImageRotationCarousel({ images }: ImageRotationCarouselProps) {
 
   return (
     <div
+      ref={containerRef}
       className="relative flex items-center justify-center"
       style={{ width: "100%", height: "480px" }}
       onMouseMove={handleMouseMove}
@@ -106,6 +121,8 @@ export function ImageRotationCarousel({ images }: ImageRotationCarouselProps) {
                   <img
                     src={image.src}
                     alt={image.alt}
+                    width={140}
+                    height={180}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     loading="lazy"
                   />

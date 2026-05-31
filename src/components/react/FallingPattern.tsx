@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 type FallingPatternProps = React.ComponentProps<'div'> & {
@@ -21,6 +21,8 @@ export function FallingPattern({
   className,
   ...props
 }: FallingPatternProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   const generateBackgroundImage = () => {
     const patterns = [
       `radial-gradient(4px 100px at 0px 235px, ${color}, transparent)`,
@@ -111,13 +113,12 @@ export function FallingPattern({
             },
           }}
           initial="initial"
-          animate="animate"
+          animate={prefersReducedMotion ? 'initial' : 'animate'}
         />
       </motion.div>
       <div
         className="absolute inset-0 z-[1]"
         style={{
-          backdropFilter: `blur(${blurIntensity})`,
           backgroundImage: `radial-gradient(circle at 50% 50%, transparent 0, transparent 2px, ${backgroundColor} 2px)`,
           backgroundSize: `${8 * density}px ${8 * density}px`,
         }}

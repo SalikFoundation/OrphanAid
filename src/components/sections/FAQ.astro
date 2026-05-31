@@ -1,5 +1,43 @@
 ---
-import { FAQAccordion } from "@/components/react/FAQAccordion";
+// FAQ rendered as static, crawlable HTML (native <details>) — no client JS island,
+// so search engines and AI answer engines can read the Q&A. FAQPage JSON-LD emitted below.
+const faqs = [
+  {
+    question: "Are donations tax-deductible?",
+    answer:
+      "Yes. Orphan Aid is a registered Canadian charity. Official tax receipts are issued for all donations, which can be used when filing your Canadian income tax return.",
+  },
+  {
+    question: "Who can receive support?",
+    answer:
+      "Support is provided based on need — regardless of a child's religion, background, or ethnicity. Every orphan we serve is treated with equal dignity and care.",
+  },
+  {
+    question: "Can I cancel a sponsorship at any time?",
+    answer:
+      "Absolutely. You have full flexibility. You can choose to donate once or commit to a monthly sponsorship, and you can cancel or change your sponsorship at any time — no questions asked.",
+  },
+  {
+    question: "How is my money actually used?",
+    answer:
+      "We work with trusted local partners and schools to ensure aid is delivered sustainably. Funds are allocated to food, education (school fees and supplies), healthcare, and direct guardian assistance. We maintain rigorous financial management and publish regular impact reports.",
+  },
+  {
+    question: "How do I know my donation is making a real difference?",
+    answer:
+      "You'll receive regular updates on your sponsored child or region, including how funds are being used and outcomes achieved. We are committed to full transparency in how we report our impact.",
+  },
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
 ---
 
 <section id="faq" class="relative py-28 md:py-36 bg-white overflow-hidden">
@@ -20,36 +58,57 @@ import { FAQAccordion } from "@/components/react/FAQAccordion";
           <span class="absolute -bottom-2 left-0 right-0 h-1 rounded-full bg-[#FFB300]"></span>
         </span>
       </h2>
-      <p class="mt-8 text-lg font-[Inter] text-[#263238]/55 leading-[1.6] max-w-2xl mx-auto">
+      <p class="mt-8 text-lg font-[Inter] text-[#263238]/90 leading-[1.6] max-w-2xl mx-auto">
         We believe trust is built through transparency. Here are answers to the questions we hear most.
       </p>
     </div>
 
-    <!-- Trust badges — no icons, clean text-only -->
+    <!-- Trust badges -->
     <div class="animate-in-element grid grid-cols-2 sm:grid-cols-4 gap-4 mb-16">
       {[
-        { label: "Canadian Charity", value: "Registered", sub: "CRA #123456" },
+        { label: "Canadian Charity", value: "Registered", sub: "Charitable status" },
         { label: "Tax Receipts", value: "Official", sub: "All donations" },
         { label: "Flexibility", value: "Cancel", sub: "Anytime" },
         { label: "Inclusive", value: "All Faiths", sub: "Welcome" },
-      ].map((badge, i) => (
+      ].map((badge) => (
         <div class="group h-full">
           <div class="relative h-full flex flex-col p-5 rounded-2xl bg-[#f7f8fa] border border-[#e8ecf0] group-hover:border-[#0d47a1]/25 group-hover:bg-[#f0f4ff] group-hover:-translate-y-0.5 group-hover:shadow-[0_6px_24px_rgba(13,71,161,0.08)] transition-all duration-250 overflow-hidden">
             <div class="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0d47a1] scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full"></div>
-            <span class="text-[9px] font-[Montserrat] font-bold tracking-widest uppercase text-[#263238]/35 mb-1">{badge.label}</span>
+            <span class="text-[9px] font-[Montserrat] font-bold tracking-widest uppercase text-[#263238]/70 mb-1">{badge.label}</span>
             <span class="text-base font-[Montserrat] font-bold text-[#263238] leading-tight">{badge.value}</span>
-            <span class="text-[11px] font-[Inter] text-[#263238]/45 mt-0.5">{badge.sub}</span>
+            <span class="text-[11px] font-[Inter] text-[#263238]/70 mt-0.5">{badge.sub}</span>
           </div>
         </div>
       ))}
     </div>
 
-    <!-- Accordion -->
-    <div class="animate-in-element">
-      <FAQAccordion client:visible />
+    <!-- FAQ (static, crawlable, accessible) -->
+    <div class="animate-in-element space-y-3">
+      {faqs.map((faq) => (
+        <details class="faq-item group border border-[#263238]/10 rounded-2xl bg-white shadow-sm overflow-hidden hover:border-[#0d47a1]/20 hover:shadow-[0_4px_20px_rgba(13,71,161,0.07)] transition-colors duration-200">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer px-6 py-5 text-left text-base font-[Montserrat] font-semibold text-[#263238] hover:text-[#0d47a1] transition-colors duration-200">
+            <span>{faq.question}</span>
+            <svg class="faq-chevron shrink-0 w-5 h-5 text-[#0d47a1]/60 transition-transform duration-200" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </summary>
+          <div class="px-6 pb-5 font-[Inter] text-[#263238]/90 leading-relaxed text-sm">
+            {faq.answer}
+          </div>
+        </details>
+      ))}
     </div>
   </div>
+
+  <!-- FAQ structured data for rich results + AI answer engines -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 </section>
+
+<style>
+  .faq-item > summary { list-style: none; }
+  .faq-item > summary::-webkit-details-marker { display: none; }
+  .faq-item[open] .faq-chevron { transform: rotate(180deg); }
+</style>
 
 <script>
   const observer = new IntersectionObserver(

@@ -1,6 +1,5 @@
 ---
 import { Image } from 'astro:assets';
-import { EtheralShadows } from "@/components/react/EtheralShadows";
 import { FallingPattern } from "@/components/react/FallingPattern";
 import orphan1 from '@/assets/images/orphan-1.jpg';
 import orphan2 from '@/assets/images/orphan-2.jpg';
@@ -8,16 +7,6 @@ import orphan3 from '@/assets/images/orphan-3.jpg';
 ---
 
 <section id="mission" class="relative py-28 md:py-36 bg-[#efefef] overflow-hidden">
-  <!-- EtheralShadows: grainy blob shadows per reference -->
-  <EtheralShadows
-    client:visible
-    color="rgba(145, 145, 145, 0.9)"
-    animation={{ scale: 35, speed: 35 }}
-    noise={{ opacity: 1.2, scale: 1.5 }}
-    sizing="fill"
-    className="absolute inset-0 w-full h-full"
-  />
-
   <!-- Falling pattern overlay (very subtle) -->
   <FallingPattern
     client:visible
@@ -32,7 +21,7 @@ import orphan3 from '@/assets/images/orphan-3.jpg';
   <div class="relative z-10 max-w-6xl mx-auto px-6">
     <!-- Section label -->
     <div class="animate-in-element flex justify-center mb-8">
-      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#263238]/8 border border-[#263238]/15 text-[#263238]/60 text-xs font-[Montserrat] font-semibold tracking-widest uppercase">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#263238]/8 border border-[#263238]/15 text-[#263238]/90 text-xs font-[Montserrat] font-semibold tracking-widest uppercase">
         Our Mission
       </span>
     </div>
@@ -43,7 +32,7 @@ import orphan3 from '@/assets/images/orphan-3.jpg';
         Millions of children are growing up<br class="hidden sm:block" />
         <span class="text-[#0d47a1]">without support.</span>
       </h2>
-      <p class="text-lg md:text-xl font-[Inter] text-[#263238]/65 leading-[1.6] max-w-3xl mx-auto">
+      <p class="text-lg md:text-xl font-[Inter] text-[#263238]/90 leading-[1.6] max-w-3xl mx-auto">
         Orphaned children worldwide are struggling without the stability, care, and essentials they need to thrive.
         Our mission is to build a global network of care that supports these children with
         <strong class="text-[#263238] font-semibold">dignity, consistency, and lasting impact.</strong>
@@ -51,13 +40,13 @@ import orphan3 from '@/assets/images/orphan-3.jpg';
     </div>
 
     <!-- Photo bento grid -->
-    <div class="mb-16 grid gap-4" style="grid-template-columns: 1fr 1.3fr; height: 580px">
+    <div class="mission-bento mb-16 grid gap-4">
       <!-- Left: portrait — object-position focuses on the children's faces -->
       <div class="animate-in-element group h-full" style="transition-delay: 100ms">
         <div class="relative h-full rounded-2xl overflow-hidden border border-[#263238]/8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)] group-hover:-translate-y-1 transition-all duration-300">
           <Image
             src={orphan2}
-            alt="Children at an orphanage"
+            alt="Two children stand close together outside their care home, looking toward the camera with quiet hope"
             width={640}
             height={1209}
             class="absolute inset-0 w-full h-full object-cover"
@@ -69,12 +58,12 @@ import orphan3 from '@/assets/images/orphan-3.jpg';
         </div>
       </div>
       <!-- Right: landscape top (bigger), portrait bottom (more height for the child) -->
-      <div class="grid gap-4" style="grid-template-rows: 1.6fr 2.4fr">
+      <div class="mission-bento-right grid gap-4">
         <div class="animate-in-element group h-full" style="transition-delay: 200ms">
           <div class="relative h-full rounded-2xl overflow-hidden border border-[#263238]/8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)] group-hover:-translate-y-1 transition-all duration-300">
             <Image
               src={orphan1}
-              alt="A young orphan child"
+              alt="A young child sits in the care of a community programme, attentive and at ease in a safe environment"
               width={640}
               height={427}
               class="absolute inset-0 w-full h-full object-cover"
@@ -89,7 +78,7 @@ import orphan3 from '@/assets/images/orphan-3.jpg';
           <div class="relative h-full rounded-2xl overflow-hidden border border-[#263238]/8 shadow-[0_4px_24px_rgba(0,0,0,0.06)] group-hover:shadow-[0_8px_40px_rgba(0,0,0,0.12)] group-hover:-translate-y-1 transition-all duration-300">
             <Image
               src={orphan3}
-              alt="An orphan child smiling"
+              alt="A child smiles warmly while playing outdoors, reflecting the stability and care that sponsorship provides"
               width={640}
               height={960}
               class="absolute inset-0 w-full h-full object-cover"
@@ -113,6 +102,44 @@ import orphan3 from '@/assets/images/orphan-3.jpg';
     </div>
   </div>
 </section>
+
+<style>
+  /* Mobile-first: single column, auto height so photos don't squash on phones */
+  .mission-bento {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  /* Left photo cell: give it a real height on mobile (parent no longer fixed) */
+  .mission-bento > .animate-in-element {
+    height: 320px;
+  }
+  /* Right column: let it stack and size to its two image cells */
+  .mission-bento-right {
+    grid-template-rows: auto auto;
+    height: auto;
+  }
+  .mission-bento-right > .animate-in-element {
+    height: 320px;
+  }
+
+  /* sm and up: restore the original 2-column 580px bento layout exactly */
+  @media (min-width: 640px) {
+    .mission-bento {
+      grid-template-columns: 1fr 1.3fr;
+      height: 580px;
+    }
+    .mission-bento > .animate-in-element {
+      height: 100%;
+    }
+    .mission-bento-right {
+      grid-template-rows: 1.6fr 2.4fr;
+      height: 100%;
+    }
+    .mission-bento-right > .animate-in-element {
+      height: 100%;
+    }
+  }
+</style>
 
 <script>
   const observer = new IntersectionObserver(

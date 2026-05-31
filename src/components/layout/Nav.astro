@@ -17,10 +17,10 @@
 
     <!-- Desktop nav links -->
     <nav class="hidden md:flex items-center gap-8" aria-label="Main navigation">
-      <a href="#mission"  class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors">Mission</a>
-      <a href="#reach"    class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors">Our Reach</a>
-      <a href="#sponsor"  class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors">Sponsor</a>
-      <a href="#faq"      class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors">FAQ</a>
+      <a href="#mission"  class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">Mission</a>
+      <a href="#reach"    class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">Our Reach</a>
+      <a href="#sponsor"  class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">Sponsor</a>
+      <a href="#faq"      class="nav-link text-sm font-medium text-white/90 hover:text-white transition-colors">FAQ</a>
     </nav>
 
     <!-- CTA -->
@@ -50,7 +50,7 @@
   <!-- Mobile menu -->
   <div
     id="mobile-menu"
-    class="hidden md:hidden absolute top-16 left-0 right-0 bg-[#56ACE0] shadow-xl px-6 py-6 flex flex-col gap-4"
+    class="hidden md:hidden absolute top-16 left-0 right-0 bg-[#1C6F9E] shadow-xl px-6 py-6 flex flex-col gap-4"
   >
     <a href="#mission" class="text-white/90 text-base font-medium py-2 border-b border-white/10">Mission</a>
     <a href="#reach"   class="text-white/90 text-base font-medium py-2 border-b border-white/10">Our Reach</a>
@@ -61,6 +61,40 @@
     </a>
   </div>
 </header>
+
+<!-- Sticky mobile donate bar (appears on scroll; mobile only) -->
+<div
+  id="sticky-donate"
+  class="fixed bottom-0 left-0 right-0 z-[90] md:hidden translate-y-full transition-transform duration-300 ease-out"
+  style="padding-bottom: env(safe-area-inset-bottom, 0px)"
+>
+  <div class="bg-[#263238] px-4 py-3 flex items-center justify-between gap-3 shadow-[0_-4px_20px_rgba(0,0,0,0.25)]">
+    <div class="leading-tight">
+      <p class="text-white text-sm font-[Montserrat] font-bold">Sponsor an orphan</p>
+      <p class="text-[#FFB300] text-[11px] font-[Inter]">from $33/mo · tax receipt issued</p>
+    </div>
+    <button
+      type="button"
+      data-fru
+      class="shrink-0 px-5 py-3 rounded-full bg-[#FFB300] text-[#263238] text-sm font-[Montserrat] font-bold active:scale-95 transition-transform"
+    >
+      Sponsor Now
+    </button>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const bar = document.getElementById('sticky-donate');
+    if (!bar) return;
+    const onScroll = () => {
+      if (window.scrollY > 360) bar.classList.remove('translate-y-full');
+      else bar.classList.add('translate-y-full');
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
 
 <script>
   const nav = document.getElementById('site-nav');
@@ -75,10 +109,10 @@
   const handleScroll = () => {
     if (!nav) return;
     if (window.scrollY > 80) {
-      nav.classList.add('bg-[#56ace0]', 'shadow-md');
+      nav.classList.add('bg-[#1C6F9E]', 'shadow-md');
       if (logo) { logo.style.width = '36px'; logo.style.height = '36px'; }
     } else {
-      nav.classList.remove('bg-[#56ace0]', 'shadow-md');
+      nav.classList.remove('bg-[#1C6F9E]', 'shadow-md');
       if (logo) { logo.style.width = '52px'; logo.style.height = '52px'; }
     }
   };

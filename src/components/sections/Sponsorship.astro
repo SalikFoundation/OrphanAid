@@ -44,7 +44,7 @@ const tiers = [
 ];
 ---
 
-<section id="sponsor" class="relative py-28 md:py-36 bg-[#56ACE0] overflow-hidden">
+<section id="sponsor" class="relative py-28 md:py-36 bg-[#1C6F9E] overflow-hidden">
   <!-- Section Particle Background -->
   <div class="absolute inset-0 z-0 pointer-events-none opacity-60">
     <SparklesCore
@@ -78,7 +78,7 @@ const tiers = [
       </h2>
     </div>
     <div class="animate-in-element text-center max-w-2xl mx-auto mb-20">
-      <p class="text-lg font-[Inter] text-white/80 leading-[1.6]">
+      <p class="text-lg font-[Inter] text-white/90 leading-[1.6]">
         Choose a monthly commitment that provides consistent stability in an orphan's life.
         Every tier makes a real, traceable difference.
       </p>
@@ -111,17 +111,17 @@ const tiers = [
 
           <div class="relative z-10 p-8">
             <!-- Tier name -->
-            <div class={`text-[10px] font-[Montserrat] font-bold tracking-widest uppercase mb-4 ${tier.featured ? 'text-white/50' : 'text-[#263238]/40'}`}>
+            <div class={`text-[10px] font-[Montserrat] font-bold tracking-widest uppercase mb-4 ${tier.featured ? 'text-white/90' : 'text-[#263238]/90'}`}>
               {tier.name}
             </div>
 
             <!-- Price -->
             <div class="flex items-end gap-0.5 mb-2">
-              <span class={`text-2xl font-[Montserrat] font-medium leading-none mb-1 ${tier.featured ? 'text-[#FFB300]/70' : 'text-[#263238]/50'}`}>$</span>
+              <span class={`text-2xl font-[Montserrat] font-medium leading-none mb-1 ${tier.featured ? 'text-[#FFB300]/70' : 'text-[#263238]/90'}`}>$</span>
               <span class={`font-[Montserrat] font-semibold leading-none ${tier.featured ? 'text-[#FFB300]' : 'text-[#263238]'}`} style="font-size: clamp(3rem, 5vw, 3.75rem)">{tier.price}</span>
-              <span class={`text-sm font-[Inter] font-medium mb-1.5 ml-0.5 ${tier.featured ? 'text-white/40' : 'text-[#263238]/40'}`}>/mo</span>
+              <span class={`text-sm font-[Inter] font-medium mb-1.5 ml-0.5 ${tier.featured ? 'text-white/90' : 'text-[#263238]/90'}`}>/mo</span>
             </div>
-            <p class={`text-sm font-[Inter] leading-[1.6] mb-8 ${tier.featured ? 'text-white/60' : 'text-[#263238]/55'}`}>{tier.tagline}</p>
+            <p class={`text-sm font-[Inter] leading-[1.6] mb-8 ${tier.featured ? 'text-white/90' : 'text-[#263238]/90'}`}>{tier.tagline}</p>
 
             <!-- Features -->
             <ul class="space-y-3 mb-8">
@@ -132,7 +132,7 @@ const tiers = [
                       <polyline points="20 6 9 17 4 12"/>
                     </svg>
                   </div>
-                  <span class={`text-sm font-[Inter] font-medium ${tier.featured ? 'text-white/75' : 'text-[#263238]/70'}`}>{f}</span>
+                  <span class={`text-sm font-[Inter] font-medium ${tier.featured ? 'text-white/75' : 'text-[#263238]/90'}`}>{f}</span>
                 </li>
               ))}
             </ul>
@@ -159,7 +159,7 @@ const tiers = [
 
     <!-- Trust note -->
     <div class="animate-in-element mt-12 text-center">
-      <p class="text-sm font-[Inter] text-white/60 font-medium">
+      <p class="text-sm font-[Inter] text-white/90 font-medium">
         🔒 Cancel anytime &nbsp;·&nbsp; Official tax receipts issued &nbsp;·&nbsp; 100% goes to orphan care
       </p>
     </div>

@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 function ElegantShape({
@@ -18,6 +18,8 @@ function ElegantShape({
   rotate?: number;
   gradient?: string;
 }) {
+  const shouldReduce = useReducedMotion();
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -150, rotate: rotate - 15 }}
@@ -26,7 +28,7 @@ function ElegantShape({
       className={cn('absolute', className)}
     >
       <motion.div
-        animate={{ y: [0, 15, 0] }}
+        animate={shouldReduce ? {} : { y: [0, 15, 0] }}
         transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY, ease: 'easeInOut' }}
         style={{ width, height }}
         className="relative"
@@ -55,7 +57,7 @@ export function ShapesBackground() {
         width={500}
         height={120}
         rotate={12}
-        gradient="from-[#56ACE0]/[0.18]"
+        gradient="from-[#1C6F9E]/[0.18]"
         className="left-[-8%] top-[15%]"
       />
       <ElegantShape
@@ -71,7 +73,7 @@ export function ShapesBackground() {
         width={280}
         height={75}
         rotate={-8}
-        gradient="from-[#56ACE0]/[0.14]"
+        gradient="from-[#1C6F9E]/[0.14]"
         className="left-[8%] bottom-[8%]"
       />
       <ElegantShape
@@ -87,7 +89,7 @@ export function ShapesBackground() {
         width={140}
         height={38}
         rotate={-25}
-        gradient="from-[#56ACE0]/[0.10]"
+        gradient="from-[#1C6F9E]/[0.10]"
         className="left-[22%] top-[6%]"
       />
     </div>

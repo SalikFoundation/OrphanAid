@@ -7,12 +7,12 @@ import { orphanAidMarkers } from "@/data/countries";
 
 <section
   id="hero"
-  class="relative min-h-screen flex items-center overflow-hidden bg-[#56ACE0]"
+  class="relative min-h-screen flex items-center overflow-hidden bg-[#1C6F9E]"
 >
   <!-- Sparkle particle background -->
   <SparklesCore
     client:only="react"
-    background="#56ACE0"
+    background="#1C6F9E"
     particleColor="#ffffff"
     particleDensity={60}
     minSize={0.6}
@@ -27,7 +27,7 @@ import { orphanAidMarkers } from "@/data/countries";
   ></div>
 
   <!-- Globe: truly centered -->
-  <div class="absolute inset-0 flex items-center justify-center z-[2] pointer-events-auto">
+  <div class="absolute inset-0 flex items-center justify-center z-[2] pointer-events-none md:pointer-events-auto">
     <GlobeOrphanAid
       client:only="react"
       markers={orphanAidMarkers}
@@ -56,23 +56,13 @@ import { orphanAidMarkers } from "@/data/countries";
         </h1>
 
         <!-- Tagline — Montserrat 500 Italic -->
-        <p class="font-[Montserrat] font-medium italic text-white/80 mb-3 leading-[1.6] animate-fade-up" style="font-size: clamp(1rem, 1.5vw, 1.2rem); animation-delay: 160ms">
+        <p class="font-[Montserrat] font-medium italic text-white/90 mb-3 leading-[1.6] animate-fade-up" style="font-size: clamp(1rem, 1.5vw, 1.2rem); animation-delay: 160ms">
           Your support provides orphaned children
         </p>
 
         <!-- Typewriter -->
         <div class="font-[Montserrat] font-medium mb-10 min-h-[2.5rem] animate-fade-up" style="font-size: clamp(1.5rem, 3vw, 2.2rem); animation-delay: 220ms">
           <TypewriterText client:only="react" />
-        </div>
-
-        <!-- Progress stat -->
-        <div class="flex items-center gap-3 mb-8 animate-fade-up" style="animation-delay: 280ms">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-[#FFB300] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
-            <polyline points="17 6 23 6 23 12"/>
-          </svg>
-          <span class="text-white/70 text-sm font-[Inter] uppercase tracking-widest">Global Goal Progress</span>
-          <span class="text-[#FFB300] font-[Montserrat] font-bold text-sm">2.4M / 15.3M Reached</span>
         </div>
 
         <!-- CTAs -->
@@ -95,7 +85,7 @@ import { orphanAidMarkers } from "@/data/countries";
         </div>
 
         <!-- Sub-note -->
-        <p class="mt-4 text-white/45 text-[11px] font-[Inter] tracking-widest uppercase animate-fade-up" style="animation-delay: 400ms">
+        <p class="mt-4 text-white/90 text-[11px] font-[Inter] tracking-widest uppercase animate-fade-up" style="animation-delay: 400ms">
           Join the daily mercy movement for just $1 a day
         </p>
       </div>
@@ -109,12 +99,12 @@ import { orphanAidMarkers } from "@/data/countries";
               <span class="w-2 h-2 rounded-full bg-[#e0cf56] inline-block animate-pulse"></span>
               <span class="text-[10px] font-[Montserrat] font-bold tracking-widest uppercase text-[#e0cf56]">Countries Supported</span>
             </div>
-            <p class="text-white/60 text-xs font-[Inter] leading-relaxed">Active operations across high-crisis &amp; vulnerable regions</p>
+            <p class="text-white/90 text-xs font-[Inter] leading-relaxed">Active operations across high-crisis &amp; vulnerable regions</p>
           </div>
 
           <!-- Country cycler -->
           <div class="px-6 py-6 flex flex-col items-center justify-center" style="min-height: 120px">
-            <div class="text-[9px] font-[Montserrat] font-bold tracking-widest uppercase text-white/35 mb-4">Now Supporting</div>
+            <div class="text-[9px] font-[Montserrat] font-bold tracking-widest uppercase text-white/90 mb-4">Now Supporting</div>
             <div
               id="hero-country-name"
               class="font-[Montserrat] font-bold text-white text-center"
@@ -127,20 +117,20 @@ import { orphanAidMarkers } from "@/data/countries";
             <div class="flex items-center justify-between mb-3">
               <div class="text-center">
                 <div class="text-2xl font-[Montserrat] font-bold text-[#e0cf56]">9</div>
-                <div class="text-[9px] text-white/50 font-[Inter] tracking-widest uppercase mt-0.5">Countries</div>
+                <div class="text-[9px] text-white/90 font-[Inter] tracking-widest uppercase mt-0.5">Countries</div>
               </div>
               <div class="w-px h-8 bg-white/15"></div>
               <div class="text-center">
                 <div class="text-2xl font-[Montserrat] font-bold text-[#e0cf56]">51,800+</div>
-                <div class="text-[9px] text-white/50 font-[Inter] tracking-widest uppercase mt-0.5">Orphans</div>
+                <div class="text-[9px] text-white/90 font-[Inter] tracking-widest uppercase mt-0.5">Orphans</div>
               </div>
               <div class="w-px h-8 bg-white/15"></div>
               <div class="text-center">
                 <div class="text-2xl font-[Montserrat] font-bold text-[#e0cf56]">$33</div>
-                <div class="text-[9px] text-white/50 font-[Inter] tracking-widest uppercase mt-0.5">/ Month</div>
+                <div class="text-[9px] text-white/90 font-[Inter] tracking-widest uppercase mt-0.5">/ Month</div>
               </div>
             </div>
-            <a href="#reach" class="flex items-center justify-between text-xs font-[Montserrat] font-semibold text-white/70 hover:text-white transition-colors group">
+            <a href="#reach" class="flex items-center justify-between text-xs font-[Montserrat] font-semibold text-white/90 hover:text-white transition-colors group">
               <span class="uppercase tracking-widest">View All Operations</span>
               <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
@@ -154,7 +144,7 @@ import { orphanAidMarkers } from "@/data/countries";
   </div>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/50 pointer-events-none">
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 text-white/90 pointer-events-none">
     <span class="text-[10px] font-[Inter] font-semibold tracking-widest uppercase">Scroll</span>
     <div class="w-px h-8 bg-gradient-to-b from-white/50 to-transparent"></div>
   </div>
