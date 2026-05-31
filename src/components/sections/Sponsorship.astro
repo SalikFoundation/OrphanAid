@@ -1,12 +1,22 @@
 ---
 import { SparklesCore } from "@/components/react/SparklesCore";
 
+const icons = {
+  heart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg>`,
+  shield: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>`,
+  family: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+};
+
 const tiers = [
   {
-    id: "daily",
-    name: "Daily Mercy",
+    id: "helping-hand",
+    name: "Helping Hand",
+    subtitle: "Daily Mercy",
+    note: "Just $1 a day",
     price: 33,
-    tagline: "Just $1 a day — your support joins others to cover an orphan's basic daily needs.",
+    accent: "#147a52",
+    accentSoft: "rgba(20,122,82,0.12)",
+    icon: icons.heart,
     features: [
       "Daily food and nutrition",
       "Basic clothing and essentials",
@@ -16,10 +26,14 @@ const tiers = [
     featured: false,
   },
   {
-    id: "full",
-    name: "Full Sponsorship",
+    id: "safety-net",
+    name: "Safety Net",
+    subtitle: "Full Sponsorship",
+    note: "",
     price: 89,
-    tagline: "Completely sponsor an orphan — become a consistent source of care and stability in their life.",
+    accent: "#FFB300",
+    accentSoft: "rgba(255,179,0,0.15)",
+    icon: icons.shield,
     features: [
       "Monthly financial support to child's guardian",
       "Education (school fees, supplies, learning)",
@@ -29,10 +43,14 @@ const tiers = [
     featured: true,
   },
   {
-    id: "priority",
-    name: "Priority Sponsorship",
-    price: 120,
-    tagline: "Support an orphan where the need is greatest — Palestine and other crisis zones.",
+    id: "guardian-angel",
+    name: "Guardian Angel",
+    subtitle: "Priority Sponsorship",
+    note: "Incl. Palestine & crisis zones",
+    price: 111,
+    accent: "#c0392b",
+    accentSoft: "rgba(192,57,43,0.10)",
+    icon: icons.family,
     features: [
       "Emergency food and essential aid",
       "Support in crisis-affected regions (incl. Palestine)",
@@ -66,7 +84,7 @@ const tiers = [
     <div class="animate-in-element flex justify-center mb-8">
       <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/25 text-white/85 text-xs font-[Montserrat] font-semibold tracking-widest uppercase">
         <span class="w-1.5 h-1.5 rounded-full bg-[#FFB300] inline-block"></span>
-        Choose Your Impact
+        Sponsor an Orphan Monthly
       </span>
     </div>
 
@@ -86,7 +104,10 @@ const tiers = [
 
     <!-- Tier Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 items-end">
-      {tiers.map((tier, i) => (
+      {tiers.map((tier, i) => {
+        const a = tier.accent;
+        const aSoft = tier.accentSoft;
+        return (
         <div
           class={`animate-in-element group h-full ${tier.featured ? 'md:-translate-y-6' : ''}`}
           style={`transition-delay: ${i * 120}ms`}
@@ -99,7 +120,7 @@ const tiers = [
             }`}
           >
           <!-- Top accent bar -->
-          <div class={`relative z-10 h-1 group-hover:h-[5px] w-full transition-all duration-300 ${tier.featured ? 'bg-[#FFB300]' : 'bg-[#0d47a1]/20 group-hover:bg-[#0d47a1]/40'}`}></div>
+          <div class="relative z-10 h-1.5 group-hover:h-2 w-full transition-all duration-300" style={`background:${a}`}></div>
 
           {tier.featured && (
             <div class="absolute top-5 right-5 z-10">
@@ -110,25 +131,31 @@ const tiers = [
           )}
 
           <div class="relative z-10 p-8">
+            <!-- Icon -->
+            <div class="w-12 h-12 rounded-full flex items-center justify-center mb-5" style={`background:${aSoft};color:${a}`} set:html={tier.icon}></div>
+
             <!-- Tier name -->
-            <div class={`text-[10px] font-[Montserrat] font-bold tracking-widest uppercase mb-4 ${tier.featured ? 'text-white/90' : 'text-[#263238]/90'}`}>
+            <div class="text-xs font-[Montserrat] font-bold tracking-widest uppercase mb-2" style={`color:${a}`}>
               {tier.name}
             </div>
 
             <!-- Price -->
-            <div class="flex items-end gap-0.5 mb-2">
-              <span class={`text-2xl font-[Montserrat] font-medium leading-none mb-1 ${tier.featured ? 'text-[#FFB300]/70' : 'text-[#263238]/90'}`}>$</span>
-              <span class={`font-[Montserrat] font-semibold leading-none ${tier.featured ? 'text-[#FFB300]' : 'text-[#263238]'}`} style="font-size: clamp(3rem, 5vw, 3.75rem)">{tier.price}</span>
-              <span class={`text-sm font-[Inter] font-medium mb-1.5 ml-0.5 ${tier.featured ? 'text-white/90' : 'text-[#263238]/90'}`}>/mo</span>
+            <div class="flex items-end gap-0.5 mb-1.5">
+              <span class={`text-2xl font-[Montserrat] font-medium leading-none mb-1 ${tier.featured ? 'text-white/70' : 'text-[#263238]/80'}`}>$</span>
+              <span class={`font-[Montserrat] font-semibold leading-none ${tier.featured ? 'text-white' : 'text-[#263238]'}`} style="font-size: clamp(3rem, 5vw, 3.75rem)">{tier.price}</span>
+              <span class={`text-sm font-[Inter] font-medium mb-1.5 ml-0.5 ${tier.featured ? 'text-white/80' : 'text-[#263238]/80'}`}>/mo</span>
             </div>
-            <p class={`text-sm font-[Inter] leading-[1.6] mb-8 ${tier.featured ? 'text-white/90' : 'text-[#263238]/90'}`}>{tier.tagline}</p>
+
+            <!-- Subtitle + note -->
+            <p class={`text-base font-[Montserrat] font-semibold leading-tight ${tier.featured ? 'text-white' : 'text-[#263238]'}`}>{tier.subtitle}</p>
+            <p class={`text-xs font-[Inter] mb-7 ${tier.featured ? 'text-white/70' : 'text-[#263238]/70'}`}>{tier.note || ' '}</p>
 
             <!-- Features -->
             <ul class="space-y-3 mb-8">
               {tier.features.map((f) => (
                 <li class="flex items-start gap-3">
-                  <div class={`shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center ${tier.featured ? 'bg-[#FFB300]/15' : 'bg-[#0d47a1]/8'}`}>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke={tier.featured ? '#FFB300' : '#0d47a1'} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <div class="shrink-0 mt-0.5 w-5 h-5 rounded-full flex items-center justify-center" style={`background:${aSoft}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke={a} stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <polyline points="20 6 9 17 4 12"/>
                     </svg>
                   </div>
@@ -143,18 +170,16 @@ const tiers = [
               data-fru
               data-fru-amount={tier.price}
               data-fru-recurring="monthly"
-              class={`block w-full text-center py-4 rounded-xl text-sm font-[Montserrat] font-bold tracking-wide transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${
-                tier.featured
-                  ? 'bg-[#FFB300] text-[#263238] hover:bg-[#e6a100] shadow-md hover:shadow-lg'
-                  : 'bg-[#263238] text-white hover:bg-[#37474f]'
-              }`}
+              class="block w-full text-center py-4 rounded-xl text-sm font-[Montserrat] font-bold tracking-wide transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] shadow-md hover:shadow-lg"
+              style={tier.featured ? 'background:#FFB300;color:#263238' : `background:${a};color:#ffffff`}
             >
               Sponsor Now — ${tier.price}/mo
             </a>
           </div>
         </div>
       </div>
-      ))}
+        );
+      })}
     </div>
 
     <!-- Trust note -->
